@@ -1,12 +1,17 @@
 using System.ComponentModel.DataAnnotations;
-public class LoginViewModel
+
+namespace writing_secure_code.Models
 {
-    [Required]
-    public string Email { get; set; }
+    public class LoginViewModel
+    {
+        [Required]
+        [EmailAddress]
+        public required string Email { get; set; }
 
-    [Required]
-    [DataType(DataType.Password)]
-    public string Password { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public required string Password { get; set; }
 
-    public bool RememberMe { get; set; }
+        public bool RememberMe { get; set; }
+    }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using writing_secure_code.Models;
 
 namespace writing_secure_code.Controllers
 {
