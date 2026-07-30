@@ -33,9 +33,20 @@ namespace writing_secure_code.Controllers
                 {
                     return RedirectToAction("Login");
                 }
+
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    var message = error.Code switch
+                    {
+                        "PasswordTooShort" => "Password must be at least 6 characters long.",
+                        "PasswordRequiresNonAlphanumeric" => "Password must include at least one non-alphanumeric character.",
+                        "PasswordRequiresLower" => "Password must include at least one lowercase letter.",
+                        "PasswordRequiresUpper" => "Password must include at least one uppercase letter.",
+                        _ => error.Description
+                    };
+
+                    ModelState.AddModelError(nameof(RegisterViewModel.Password), message);
+                    ModelState.AddModelError("", message);
                 }
             }
             return View(model);
