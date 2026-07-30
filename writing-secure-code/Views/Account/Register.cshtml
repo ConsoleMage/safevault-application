@@ -1,13 +1,20 @@
 @model RegisterViewModel
 
 <form asp-action="Register" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div>
-        <label>Email</label>
+        <label asp-for="Email"></label>
         <input asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
+
     <div>
-        <label>Password</label>
+        <label asp-for="Password"></label>
         <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
+
+    <p class="text-muted">Use at least 6 characters, including upper and lowercase letters, a number, and a symbol.</p>
     <button type="submit">Register</button>
 </form>
