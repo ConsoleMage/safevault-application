@@ -1,8 +1,6 @@
 @model RegisterViewModel
 
 <form asp-action="Register" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
     <div>
         <label asp-for="Email"></label>
         <input asp-for="Email" />
@@ -12,8 +10,13 @@
     <div>
         <label asp-for="Password"></label>
         <input asp-for="Password" type="password" />
-        <span asp-validation-for="Password" class="text-danger"></span>
+        <!-- Removed asp-validation-for="Password" -->
     </div>
 
     <button type="submit">Register</button>
+
+    <!-- Unified error container -->
+    <div class="error-container">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
 </form>
