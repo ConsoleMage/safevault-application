@@ -5,6 +5,7 @@ namespace writing_secure_code.Helpers;
 public class LoginHelper
 {
     private readonly string _connectionString;
+    private const string AllowedSpecialCharacters = "!@#$%^&*?";
 
     public LoginHelper(string? connectionString = null)
     {
@@ -29,9 +30,7 @@ public class LoginHelper
 
     public bool RegisterUser(string username, string password)
     {
-        string allowedSpecialCharacters = "!@#$%^&*?";
-
-        if (!ValidationHelpers.IsValidInput(username) || !ValidationHelpers.IsValidInput(password, allowedSpecialCharacters))
+        if (!ValidationHelpers.IsValidInput(username) || !ValidationHelpers.IsValidInput(password, AllowedSpecialCharacters))
             return false;
 
         InitializeDatabase();
@@ -57,9 +56,8 @@ public class LoginHelper
 
     public bool LoginUser(string username, string password)
     {
-        string allowedSpecialCharacters = "!@#$%^&*?";
 
-        if (!ValidationHelpers.IsValidInput(username) || !ValidationHelpers.IsValidInput(password, allowedSpecialCharacters))
+        if (!ValidationHelpers.IsValidInput(username) || !ValidationHelpers.IsValidInput(password, AllowedSpecialCharacters))
             return false;
 
         InitializeDatabase();
