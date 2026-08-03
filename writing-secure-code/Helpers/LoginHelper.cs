@@ -56,7 +56,6 @@ public class LoginHelper
 
     public bool LoginUser(string username, string password)
     {
-
         if (!ValidationHelpers.IsValidInput(username) || !ValidationHelpers.IsValidInput(password, AllowedSpecialCharacters))
             return false;
 
@@ -66,11 +65,10 @@ public class LoginHelper
         connection.Open();
 
         using var command = connection.CreateCommand();
-        command.CommandText = "SELECT COUNT(1) FROM Users WHERE Username = $username AND Password = $password";
+        command.CommandText = "SELECT Password FROM Users WHERE Username = $username";
         command.Parameters.AddWithValue("$username", username);
-        command.Parameters.AddWithValue("$password", password);
 
-        var count = Convert.ToInt32(command.ExecuteScalar());
-        return count > 0;
+        var storedPassword = command.ExecuteScalar()?.ToString();
+        return storedPassword != null && storedPassword == password;
     }
 }

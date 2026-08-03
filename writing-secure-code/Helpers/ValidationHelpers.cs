@@ -11,4 +11,13 @@ public static class ValidationHelpers
 
         return input.All(c => char.IsLetterOrDigit(c) || validCharacters.Contains(c));
     }
+
+    public static bool IsValidXSSInput(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return true;
+
+        var normalizedInput = input.ToLowerInvariant();
+        return !normalizedInput.Contains("<script") && !normalizedInput.Contains("<iframe");
+    }
 }

@@ -8,6 +8,10 @@ builder.Services.AddControllersWithViews();
 var loginHelper = new LoginHelper($"Data Source={Path.Combine(builder.Environment.ContentRootPath, "app.db")}");
 loginHelper.InitializeDatabase();
 
+var maliciousInput = "<script>alert('XSS');</script>";
+var isValid = ValidationHelpers.IsValidXSSInput(maliciousInput);
+Console.WriteLine(isValid ? "XSS Test Failed" : "XSS Test Passed");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
