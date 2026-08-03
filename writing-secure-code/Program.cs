@@ -1,7 +1,12 @@
+using writing_secure_code.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var loginHelper = new LoginHelper($"Data Source={Path.Combine(builder.Environment.ContentRootPath, "app.db")}");
+loginHelper.InitializeDatabase();
 
 var app = builder.Build();
 
