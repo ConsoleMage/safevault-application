@@ -5,14 +5,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var loginHelper = new LoginHelper($"Data Source={Path.Combine(builder.Environment.ContentRootPath, "app.db")}");
-loginHelper.InitializeDatabase();
+var connectionString = $"Data Source={Path.Combine(builder.Environment.ContentRootPath, "app.db")}";
+builder.Services.AddSingleton(new LoginHelper(connectionString));
 
 var maliciousInput = "<script>alert('XSS');</script>";
 var isValid = ValidationHelpers.IsValidXSSInput(maliciousInput);
 Console.WriteLine(isValid ? "XSS Test Failed" : "XSS Test Passed");
 
 var app = builder.Build();
+
+app.Services.GetRequiredService<LoginHelper>().InitializeDatabase();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
