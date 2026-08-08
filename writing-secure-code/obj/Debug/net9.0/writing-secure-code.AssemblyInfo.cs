@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("writing-secure-code")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbaca78bf6b392ddf41acb025c31025b0609279c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5e7f2e5704de5735afc9ade9b43009907ecd625")]
 [assembly: System.Reflection.AssemblyProductAttribute("writing-secure-code")]
 [assembly: System.Reflection.AssemblyTitleAttribute("writing-secure-code")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

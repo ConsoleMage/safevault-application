@@ -4,26 +4,9 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Use the form below to submit your details.</p>
+    <p>Please register for an account to continue.</p>
+    <p>
+        <a class="btn btn-primary" href="/Account/Register">Register</a>
+        <a class="btn btn-secondary" href="/Account/Login">Login</a>
+    </p>
 </div>
-
-@if (TempData["ErrorMessage"] is string errorMessage)
-{
-    <div class="alert alert-danger">@errorMessage</div>
-}
-
-<form action="/submit" method="post">
-    @Html.AntiForgeryToken()
-
-    <div class="mb-3">
-        <label for="username" class="form-label">Username:</label>
-        <input type="text" class="form-control" id="username" name="username">
-    </div>
-
-    <div class="mb-3">
-        <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" name="email">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
