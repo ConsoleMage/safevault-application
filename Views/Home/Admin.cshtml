@@ -1,0 +1,15 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+<p>Welcome, @User?.Identity?.Name</p>
+<p>This page is restricted to users in the Admin role.</p>
+
+<div>
+    <p>Demo actions:</p>
+    <ul>
+        <li><a href="/Admin/Users">Manage users (not implemented)</a></li>
+    </ul>
+</div>
