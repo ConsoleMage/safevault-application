@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using safevault_application.Data;
 using safevault_application.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using safevault_application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +27,26 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 // legacy helper removed — Identity is the primary user store now
+
+builder.Services.AddControllers();
+builder.Services.AddSingleton<TokenService>();
+
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var jwtSecret = jwtSettings["Secret"] ?? throw new InvalidOperationException("JwtSettings:Secret is not configured");
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
+        };
+    });
 
 var maliciousInput = "<script>alert('XSS');</script>";
 Console.WriteLine(ValidationHelpers.IsValidXSSInput(maliciousInput) ? "XSS Test Failed" : "XSS Test Passed");
