@@ -33,7 +33,11 @@ builder.Services.AddSingleton<TokenService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var jwtSecret = jwtSettings["Secret"] ?? throw new InvalidOperationException("JwtSettings:Secret is not configured");
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -73,6 +77,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
@@ -141,4 +147,11 @@ static async Task CreateUserIfNotExistsAsync(UserManager<IdentityUser> userManag
 
     await userManager.AddToRoleAsync(user, roleName);
     Console.WriteLine($"Seeded {seedType} user '{userName}'");
+}
+
+public partial class Program
+{
+    protected Program()
+    {
+    }
 }

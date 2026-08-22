@@ -44,6 +44,20 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet("/api/secure-data")]
+    [Authorize]
+    public IActionResult SecureData()
+    {
+        return Ok(new { message = "Authenticated data" });
+    }
+
+    [HttpGet("/api/admin-only")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult AdminOnly()
+    {
+        return Ok(new { message = "Admin data" });
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

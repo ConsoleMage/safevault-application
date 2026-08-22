@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Tests\**" />
+    <None Remove="Tests\**" />
+    <Content Remove="Tests\**" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
     <!-- BCrypt removed: using ASP.NET Core Identity's password hashing -->
